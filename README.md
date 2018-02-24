@@ -1,12 +1,6 @@
-# Fuse2
+# NCSolutions - Paper generation - Front End
 
 Material Design Admin Template with Angular 5+ and Angular Material 2
-
-## The Community
-
-Share your ideas, discuss Fuse and help each other.
-
-[Click here](https://join.slack.com/t/fuse-theme/shared_invite/enQtMzA1NDE4NzYwMjcyLWQxODE4ODM1MWU4MWJjMDhlMGEwYzM4Mzg3N2E4YzVlZThhZjNlOTQ1Y2Q5OTBlNDNkMzJhZDIwMjgxOWQ3YWU) to join our Slack workspace.
 
 ## Development server
 
