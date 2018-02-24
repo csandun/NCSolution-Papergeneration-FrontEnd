@@ -1,3 +1,70 @@
-<p>
-  exams works!
-</p>
+<div id="exams" class="page-layout simple" fusePerfectScrollbar>
+  
+      <!-- HEADER -->
+      <div class="header mat-accent-bg p-16 p-sm-24" fxLayout="column" fxLayoutAlign="center center">
+  
+          <div class="hero-text">
+              <mat-icon class="hero-icon">school</mat-icon>
+              <h1>WELCOME TO EXAM PORTAL</h1>
+              <h3>
+                 Select your exam
+              </h3>
+          </div>
+  
+      </div>
+      <!-- / HEADER -->
+  
+      <!-- CONTENT -->
+      <div class="content p-24">
+  
+          <div fxLayout="column" fxLayoutAlign="center">
+            
+              <div class="courses" fxLayout="row" fxLayoutAlign="center" fxLayoutWrap>
+  
+                  <div class="course" *ngFor="let course of filteredCourses" fxFlex="100" fxFlex.gt-xs="50"
+                       fxFlex.gt-sm="33" [ngClass]="course.category">
+  
+                      <div class="course-content" fxLayout="column">
+  
+                          <div class="header" fxLayout="row" fxLayoutAlign="center center"
+                               [ngClass]="course.category + '-bg'">
+  
+                              <div class="category" fxFlex>
+                                  {{course.category}}
+                              </div>
+  
+                              <div class="length" fxLayout="row" fxLayoutAlign="center center">
+                                  <mat-icon class="length-icon s-20">access_time</mat-icon>
+                                  <div class="min">{{course.length}} min</div>
+                              </div>
+  
+                          </div>
+  
+                          <div class="content" fxLayout="column" fxLayoutAlign="center center" fxFlex>
+                              <div class="h1">{{course.title}}</div>
+                              <div class="updated">Updated {{course.updated}}</div>
+                          </div>
+  
+                          <div class="footer" fxLayout="row" fxLayoutAlign="center center">
+                              <button mat-button color="accent"
+                                      [routerLink]="'/apps/academy/courses/' + course.id + '/' + course.slug">
+                                  START
+                              </button>
+                          </div>
+  
+                      </div>
+  
+                  </div>
+  
+                  <div class="no-courses" *ngIf="filteredCourses.length === 0">
+                      No courses found!
+                  </div>
+  
+              </div>
+  
+          </div>
+  
+      </div>
+      <!-- / CONTENT -->
+  
+  </div>

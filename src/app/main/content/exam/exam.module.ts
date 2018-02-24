@@ -9,22 +9,16 @@ import { ExamComponent } from './exam/exam.component';
 
 const routes = [
   {
-      path     : 'exams',
-      component: ExamsComponent,
-      resolve  : {
-          academy: ExamsService
-      }
+      path     : '',
+      component: ExamsComponent
   },
   {
-      path     : 'exams/:examId',
-      component: ExamComponent,
-      resolve  : {
-          academy: ExamService
-      }
+      path     : ':examId',
+      component: ExamComponent
   },
   {
       path      : '**',
-      redirectTo: 'courses'
+      redirectTo: ''
   }
 ];
 
