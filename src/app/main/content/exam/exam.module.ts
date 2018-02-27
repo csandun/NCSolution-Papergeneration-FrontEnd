@@ -6,15 +6,22 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ExamsComponent } from './exams/exams.component';
 import { ExamComponent } from './exam/exam.component';
+import { resolve } from 'q';
 
 const routes = [
   {
       path     : '',
-      component: ExamsComponent
+      component: ExamsComponent,
+      resolve: {
+        exam: ExamsService
+      }
   },
   {
       path     : ':examId',
-      component: ExamComponent
+      component: ExamComponent,
+      resolve: {
+        exam: ExamService
+      }
   },
   {
       path      : '**',
