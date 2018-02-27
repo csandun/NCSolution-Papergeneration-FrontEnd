@@ -14,14 +14,14 @@ export class FuseNavigationModel implements FuseNavigationModelInterface
                 'type'    : 'group',
                 'children': [
                     {
-                        'id'   : 'sample',
-                        'title': 'Sample',
+                        'id'   : 'Exams',
+                        'title': 'Exams',
                         'translate': 'NAV.SAMPLE.TITLE',
                         'type' : 'item',
                         'icon' : 'email',
-                        'url'  : '/sample',
+                        'url'  : '/exams',
                         'badge': {
-                            'title': 25,
+                            'title': 2,
                             'translate': 'NAV.SAMPLE.BADGE',
                             'bg'   : '#F44336',
                             'fg'   : '#FFFFFF'

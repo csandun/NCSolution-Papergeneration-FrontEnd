@@ -15,8 +15,8 @@ import { TranslateModule } from '@ngx-translate/core';
 
 const appRoutes: Routes = [
     {
-        path      : '**',
-        redirectTo: 'sample'
+        path        : 'exams',
+        loadChildren: './main/content/exam/exam.module#ExamModule'
     }
 ];
 
