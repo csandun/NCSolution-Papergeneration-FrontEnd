@@ -1,3 +1,2 @@
-export class Question {
-    
+export class Question {    
 }
