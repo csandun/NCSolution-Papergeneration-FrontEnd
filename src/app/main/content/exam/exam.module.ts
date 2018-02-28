@@ -11,7 +11,7 @@ import { resolve } from 'q';
 const routes = [
   {
       path     : '',
-      component: ExamsComponent         
+      component: ExamsComponent,         
   },
   {
       path     : ':examId',
