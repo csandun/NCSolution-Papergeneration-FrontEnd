@@ -14,7 +14,11 @@ const routes = [
   },
   {
       path     : ':examId',
-      component: ExamComponent
+      component: ExamComponent,
+      resolve: {
+          userExam: ExamService
+      }
+
   },
   {
       path      : '**',
