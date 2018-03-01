@@ -14,16 +14,16 @@ import { FusePerfectScrollbarDirective } from '../../../../core/directives/fuse-
 })
 export class ExamComponent implements  OnInit, OnDestroy, AfterViewInit {
 
-  course: any;
-  // courseSubscription: Subscription;
+  userExam: any;
+  userExamSubscription: Subscription;
   currentStep = 0;
-  courseStepContent;
+  // courseStepContent;
   animationDirection: 'left' | 'right' | 'none' = 'none';
   @ViewChildren(FusePerfectScrollbarDirective) fuseScrollbarDirectives: QueryList<FusePerfectScrollbarDirective>;  
   fuseSettings: any;
   
   constructor(
-      private examService: ExamService,
+      private userExamService: ExamService,
       private changeDetectorRef: ChangeDetectorRef,
       private fuseConfig: FuseConfigService,
   )
@@ -32,78 +32,21 @@ export class ExamComponent implements  OnInit, OnDestroy, AfterViewInit {
 
   ngOnInit()
   {
-      // Subscribe to courses
-       this.course = this.examService.getQuestions();
-      console.log(this.course);
-
-      //     // this.courseService.onCourseChanged
-      //     //     .subscribe(course => {
-      //     //         this.course = course;
-      //     //     });
-      //     console.log(this.course);
-
-      // this.courseSubscription = this.questionContainService.onCourseChanged.subscribe(course =>{this.course = course});
-      // console.log(this.course);
+    this.userExamSubscription =
+    this.userExamService.onUserExamChanged
+        .subscribe(userExam => {            
+            this.userExam = userExam;
+        });
   }
   ngAfterViewInit()
   {
-      this.courseStepContent = this.fuseScrollbarDirectives.find((fuseScrollbarDirective) => {
-          return fuseScrollbarDirective.element.nativeElement.id === 'course-step-content';
-      });
+    //   this.courseStepContent = this.fuseScrollbarDirectives.find((fuseScrollbarDirective) => {
+    //       return fuseScrollbarDirective.element.nativeElement.id === 'course-step-content';
+    //   });
   }
 
   ngOnDestroy()
   {
-      // this.courseSubscription.unsubscribe();
+      this.userExamSubscription.unsubscribe();
   }
-
-  gotoStep(step)
-  {
-      // Decide the animation direction
-      this.animationDirection = this.currentStep < step ? 'left' : 'right';
-
-      // Run change detection so the change
-      // in the animation direction registered
-      this.changeDetectorRef.detectChanges();
-
-      // Set the current step
-      this.currentStep = step;
-  }
-
-  gotoNextStep()
-  {
-      if ( this.currentStep === this.course.totalSteps - 1 )
-      {
-          return;
-      }
-
-      // Set the animation direction
-      this.animationDirection = 'left';
-
-      // Run change detection so the change
-      // in the animation direction registered
-      this.changeDetectorRef.detectChanges();
-
-      // Increase the current step
-      this.currentStep++;
-  }
-
-  gotoPreviousStep()
-  {
-      if ( this.currentStep === 0 )
-      {
-          return;
-      }
-
-      // Set the animation direction
-      this.animationDirection = 'right';
-
-      // Run change detection so the change
-      // in the animation direction registered
-      this.changeDetectorRef.detectChanges();
-
-      // Decrease the current step
-      this.currentStep--;
-  }
-
 }

@@ -5,5 +5,7 @@
 
 export const environment = {
     production: false,
-    hmr       : false
+    hmr       : false,
+    apiUrl: 'https://ncspapergeneration.azurewebsites.net/api/',
+    // apiUrl: 'http://dev.ues.eyepax.info:5565/HMApi/',
 };
