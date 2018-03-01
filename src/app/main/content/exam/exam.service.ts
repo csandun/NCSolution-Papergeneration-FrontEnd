@@ -39,7 +39,6 @@ export class ExamService implements Resolve<any>
     getUserExam(examId): Promise<any>
     {
         return new Promise((resolve, reject) => {
-            this.http.get(`http://localhost:59383/api/UserExams/${examId}/Questions`)
             this.http.get(`https://ncspapergeneration.azurewebsites.net/api/UserExams/${examId}/Questions`)
                 .subscribe((response: any) => {
                     this.onUserExamChanged.next(response);
