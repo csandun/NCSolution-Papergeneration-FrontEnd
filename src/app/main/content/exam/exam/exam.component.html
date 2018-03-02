@@ -14,8 +14,10 @@
                         <div class="index">
                             <span>{{i + 1}}</span>
                         </div>
-                        <div class="title">{{(question.Question.QuestionContent.length > 35) ? (question.Question.QuestionContent | slice:0:35)+'..
-                            ?': (question.Question.QuestionContent) }}</div>
+                        <div class="title">{{(question.Question.QuestionContent.length > 35) 
+                                            ? (question.Question.QuestionContent | slice:0:35)+'..?'
+                                            : (question.Question.QuestionContent) }}
+                        </div>
                     </div>
 
                 </div>
@@ -39,9 +41,21 @@
                         <mat-icon>arrow_back</mat-icon>
                     </button> -->
 
-                <div>
-                    <!-- <h2>{{course.title}}</h2> -->
+                   
+
+                <div  fxLayout="row"  fxLayoutAlign="start center">
+                    <h2>Exam 12</h2>
                 </div>
+
+                
+                 <button mat-raised-button
+                    class="save-product-button mat-white-bg mt-16 mt-sm-0"                    
+                    (click)="saveProduct()">
+                        <span>FINISH</span>
+                    </button>
+
+                
+
 
             </div>
             <!-- / HEADER -->
