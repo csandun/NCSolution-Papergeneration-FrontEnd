@@ -6,101 +6,75 @@ import { Component, OnInit, OnDestroy, AfterViewInit, ChangeDetectorRef, ViewEnc
 import { FusePerfectScrollbarDirective } from '../../../../core/directives/fuse-perfect-scrollbar/fuse-perfect-scrollbar.directive';
 
 @Component({
-  selector: 'fuse-exam',
-  templateUrl: './exam.component.html',
-  styleUrls: ['./exam.component.scss'],
-  encapsulation: ViewEncapsulation.None,
-  animations   : fuseAnimations  
+    selector: 'fuse-exam',
+    templateUrl: './exam.component.html',
+    styleUrls: ['./exam.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    animations: fuseAnimations
 })
-export class ExamComponent implements  OnInit, OnDestroy, AfterViewInit {
+export class ExamComponent implements OnInit, OnDestroy, AfterViewInit {
 
-  userExam: any;
-  userExamSubscription: Subscription;
-  currentStep = 0;
-  courseStepContent;
-  animationDirection: 'left' | 'right' | 'none' = 'none';
-  @ViewChildren(FusePerfectScrollbarDirective) fuseScrollbarDirectives: QueryList<FusePerfectScrollbarDirective>;  
-  fuseSettings: any;
+    userExam: any;
+    userExamSubscription: Subscription;
+    currentStep = 0;
+    courseStepContent;
+    animationDirection: 'left' | 'right' | 'none' = 'none';    
+    fuseSettings: any;
+    selectedChoiceId;
+    totalSteps = 5;
 
-  totalSteps = 5;
-  
-  constructor(
-      private userExamService: ExamService,
-      private changeDetectorRef: ChangeDetectorRef,
-      private fuseConfig: FuseConfigService,
-  )
-  { 
-  }
+    @ViewChildren(FusePerfectScrollbarDirective) fuseScrollbarDirectives: QueryList<FusePerfectScrollbarDirective>;
 
-  ngOnInit()
-  {
-    this.userExamSubscription =
-    this.userExamService.onUserExamChanged
-        .subscribe(userExam => {            
-            this.userExam = userExam;
-        });
-  }
-  ngAfterViewInit()
-  {
-      this.courseStepContent = this.fuseScrollbarDirectives.find((fuseScrollbarDirective) => {
-          return fuseScrollbarDirective.element.nativeElement.id === 'course-step-content';
-      });
-  }
+    constructor(
+        private userExamService: ExamService,
+        private changeDetectorRef: ChangeDetectorRef,
+        private fuseConfig: FuseConfigService,
+    ) {
+    }
 
-  ngOnDestroy()
-  {
-      this.userExamSubscription.unsubscribe();
-  }
+    ngOnInit() {
+        this.userExamSubscription =
+            this.userExamService.onUserExamChanged
+                .subscribe(userExam => {
+                    this.userExam = userExam;
+                });
+    }
+    ngAfterViewInit() {
+        // this.courseStepContent = this.fuseScrollbarDirectives.find((fuseScrollbarDirective) => {
+        //     return fuseScrollbarDirective.element.nativeElement.id === 'course-step-content';
+        // });
+    }
 
-  gotoStep(step)
-  {
-      // Decide the animation direction
-      this.animationDirection = this.currentStep < step ? 'left' : 'right';
+    ngOnDestroy() {
+        this.userExamSubscription.unsubscribe();
+    }
 
-      // Run change detection so the change
-      // in the animation direction registered
-      this.changeDetectorRef.detectChanges();
+    gotoStep(step) {
+        this.animationDirection = this.currentStep < step ? 'left' : 'right';
+        this.changeDetectorRef.detectChanges();
+        this.currentStep = step;
+    }
 
-      // Set the current step
-      this.currentStep = step;
-  }
+    gotoNextStep() {        
+        if (this.currentStep === this.totalSteps - 1) {
+            return;
+        }
 
-  gotoNextStep()
-  {
-      if ( this.currentStep === this.totalSteps - 1 )
-      {
-          return;
-      }
+        this.animationDirection = 'left';
+        this.changeDetectorRef.detectChanges();       
+        this.currentStep++;
+    }
 
-      // Set the animation direction
-      this.animationDirection = 'left';
+    gotoPreviousStep() {
+        if (this.currentStep === 0) {
+            return;
+        }
+        
+        this.animationDirection = 'right';
+        this.changeDetectorRef.detectChanges();
+        this.currentStep--;
+    }
 
-      // Run change detection so the change
-      // in the animation direction registered
-      this.changeDetectorRef.detectChanges();
 
-      // Increase the current step
-      this.currentStep++;
-  }
 
-  gotoPreviousStep()
-  {
-      if ( this.currentStep === 0 )
-      {
-          return;
-      }
-
-      // Set the animation direction
-      this.animationDirection = 'right';
-
-      // Run change detection so the change
-      // in the animation direction registered
-      this.changeDetectorRef.detectChanges();
-
-      // Decrease the current step
-      this.currentStep--;
-  }
-  
-
-  
 }
