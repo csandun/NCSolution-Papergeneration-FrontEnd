@@ -23,7 +23,7 @@ export class FuseConfigService
         this.defaultSettings = {
             layout          : {
                 navigation      : 'left', // 'right', 'left', 'top', 'none'
-                navigationFolded: false, // true, false
+                navigationFolded: true, // true, false
                 toolbar         : 'below', // 'above', 'below', 'none'
                 footer          : 'none', // 'above', 'below', 'none'
                 mode            : 'fullwidth' // 'boxed', 'fullwidth'

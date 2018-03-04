@@ -1,0 +1,114 @@
+<div id="exam" class="page-layout simple left-sidenav">
+
+    <mat-sidenav-container>
+
+        <!-- SIDENAV -->
+        <mat-sidenav class="sidenav" align="start" opened="true" mode="side" fuseMatSidenavHelper="exam-left-sidenav" mat-is-locked-open="gt-md">
+
+            <div class="sidenav-content" fusePerfectScrollbar>
+
+                <div class="steps">
+
+                    <div class="step" *ngFor="let question of userExam; let i = index; let last = last; let first = first" (click)="gotoStep(i)"
+                        [ngClass]="{'current': currentStep === i, 'completed': currentStep > i, 'last': last, 'first': first}">
+                        <div class="index">
+                            <span>{{i + 1}}</span>
+                        </div>
+                        <div class="title">{{(question.Question.QuestionContent.length > 35) 
+                                            ? (question.Question.QuestionContent | slice:0:35)+'..?'
+                                            : (question.Question.QuestionContent) }}
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </mat-sidenav>
+        <!-- / SIDENAV -->
+
+        <!-- CENTER -->
+        <div class="center">
+
+            <!-- HEADER -->
+            <div class="header mat-accent-bg p-24" fxLayout="row" fxLayoutAlign="start center">
+
+                <button mat-button class="mat-icon-button mr-16 sidenav-toggle" fuseMatSidenavToggler="exam-left-sidenav" fxHide.gt-md>
+                    <mat-icon>menu</mat-icon>
+                </button>
+
+                <!-- <button mat-button class="mat-icon-button mr-16" [routerLink]="'/apps/academy/courses'">
+                        <mat-icon>arrow_back</mat-icon>
+                    </button> -->
+
+                   
+
+                <div  fxLayout="row"  fxLayoutAlign="start center">
+                    <h2>Exam 12</h2>
+                </div>
+
+                
+                 <button mat-raised-button
+                    class="save-product-button mat-white-bg mt-16 mt-sm-0"                    
+                    (click)="saveProduct()">
+                        <span>FINISH</span>
+                    </button>
+
+                
+
+
+            </div>
+            <!-- / HEADER -->
+
+            <!-- CONTENT -->
+            <div id="course-content" class="content">
+
+                <ng-container *ngFor="let question of userExam; let i = index;">
+
+                    <div class="course-step" fusePerfectScrollbar *ngIf="currentStep === i" [@slideIn]="animationDirection">
+
+                        <div id="course-step-content" class="course-step-content">
+                            <h1>Question - {{ ((i+1)
+                                < 10 ) ? '0'+(i+1) : (i+1) }}</h1>
+                                    <h2>{{question.Question.QuestionContent}}</h2>
+                                    
+                                    
+                                    <mat-radio-group class="choice-radio-group" [(ngModel)]="selectedChoiceId">
+                                            <mat-radio-button class="choice-radio-button" *ngFor="let choice of question.Question.Choices" [value]="choice.Id">
+                                                {{choice.ChoiceString}}                                                
+                                            </mat-radio-button>
+                                        </mat-radio-group>
+
+                        </div>
+
+
+                    </div>
+
+                </ng-container>
+
+            </div>
+            <!-- / CONTENT -->
+
+            <div class="step-navigation">
+
+                <button mat-fab class="previous mat-accent white-fg" (click)="gotoPreviousStep()" [disabled]="currentStep === 0" [fxHide]="currentStep === 0">
+                    <mat-icon>chevron_left</mat-icon>
+                </button>
+
+                <button mat-fab class="next mat-accent white-fg" (click)="gotoNextStep()" [disabled]="currentStep === totalSteps - 1" [fxHide]="currentStep === totalSteps - 1">
+                    <mat-icon>chevron_right</mat-icon>
+                </button>
+
+                <button mat-fab class="done mat-green-600-bg" routerLink="/apps/academy/courses" [disabled]="currentStep !== totalSteps - 1"
+                    [fxShow]="currentStep === totalSteps - 1">
+                    <mat-icon>check</mat-icon>
+                </button>
+
+            </div>
+
+        </div>
+        <!-- / CENTER -->
+
+    </mat-sidenav-container>
+
+</div>

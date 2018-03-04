@@ -42,8 +42,7 @@ export class ExamService implements Resolve<any>
             this.http.get(`https://ncspapergeneration.azurewebsites.net/api/UserExams/${examId}/Questions`)
                 .subscribe((response: any) => {
                     this.onUserExamChanged.next(response);
-                    resolve(response);
-                    console.log(response);
+                    resolve(response);                    
                 }, reject);
         });
     }
