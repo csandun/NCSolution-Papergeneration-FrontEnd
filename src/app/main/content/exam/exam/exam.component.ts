@@ -15,6 +15,7 @@ import { FusePerfectScrollbarDirective } from '../../../../core/directives/fuse-
 export class ExamComponent implements OnInit, OnDestroy, AfterViewInit {
 
     userExam: any;
+    examId;
     userExamSubscription: Subscription;
     currentStep = 0;
     courseStepContent;
@@ -51,6 +52,7 @@ export class ExamComponent implements OnInit, OnDestroy, AfterViewInit {
 
     gotoStep(step) {
         this.animationDirection = this.currentStep < step ? 'left' : 'right';
+        this.saveQuestionAnswer();
         this.changeDetectorRef.detectChanges();
         this.currentStep = step;
     }
@@ -59,7 +61,7 @@ export class ExamComponent implements OnInit, OnDestroy, AfterViewInit {
         if (this.currentStep === this.totalSteps - 1) {
             return;
         }
-
+        this.saveQuestionAnswer();
         this.animationDirection = 'left';
         this.changeDetectorRef.detectChanges();       
         this.currentStep++;
@@ -69,12 +71,28 @@ export class ExamComponent implements OnInit, OnDestroy, AfterViewInit {
         if (this.currentStep === 0) {
             return;
         }
-        
+        this.saveQuestionAnswer();
         this.animationDirection = 'right';
         this.changeDetectorRef.detectChanges();
         this.currentStep--;
     }
 
+    finishedAndSubmit(){
+        this.saveQuestionAnswer();
 
+    }
+
+    saveQuestionAnswer(){
+        var questionId = this.userExam[this.currentStep].Id;
+        var answerId = this.selectedChoiceId;
+        console.log(questionId + " - "+ answerId);
+        this.selectedChoiceId = null;
+    }
+
+    getSelectedAnswer(answerId){
+        this.selectedChoiceId = answerId;
+        console.log(answerId);
+        
+    }
 
 }

@@ -74,7 +74,8 @@
                                     
                                     
                                     <mat-radio-group class="choice-radio-group">
-                                            <mat-radio-button class="choice-radio-button" *ngFor="let choice of question.Question.Choices" [value]="choice.Id" checked="{{(question.ChoiceId == choice.Id)}}">
+                                            <mat-radio-button class="choice-radio-button" *ngFor="let choice of question.Question.Choices" [value]="choice.Id" 
+                                                        checked="{{(question.ChoiceId == choice.Id)}}" (click)="getSelectedAnswer(choice.Id)">
                                                 {{choice.ChoiceString}}                                                
                                             </mat-radio-button>
                                         </mat-radio-group>
@@ -99,7 +100,7 @@
                     Next<mat-icon>chevron_right</mat-icon>
                 </button>
 
-                <button mat-raised-button class="done mat-green-600-bg" routerLink="/apps/academy/courses" [disabled]="currentStep !== totalSteps - 1"
+                <button mat-raised-button class="done mat-green-600-bg" (click)="finishedAndSubmit()" [disabled]="currentStep !== totalSteps - 1"
                     [fxShow]="currentStep === totalSteps - 1">
                     <mat-icon>check</mat-icon>Finish
                 </button>
