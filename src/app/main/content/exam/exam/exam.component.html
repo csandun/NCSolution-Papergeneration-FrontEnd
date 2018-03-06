@@ -73,8 +73,8 @@
                                     <h2>{{question.Question.QuestionContent}}</h2>
                                     
                                     
-                                    <mat-radio-group class="choice-radio-group" [(ngModel)]="selectedChoiceId">
-                                            <mat-radio-button class="choice-radio-button" *ngFor="let choice of question.Question.Choices" [value]="choice.Id">
+                                    <mat-radio-group class="choice-radio-group">
+                                            <mat-radio-button class="choice-radio-button" *ngFor="let choice of question.Question.Choices" [value]="choice.Id" checked="{{(question.ChoiceId == choice.Id)}}">
                                                 {{choice.ChoiceString}}                                                
                                             </mat-radio-button>
                                         </mat-radio-group>
@@ -91,17 +91,17 @@
 
             <div class="step-navigation">
 
-                <button mat-fab class="previous mat-accent white-fg" (click)="gotoPreviousStep()" [disabled]="currentStep === 0" [fxHide]="currentStep === 0">
-                    <mat-icon>chevron_left</mat-icon>
+                <button mat-raised-button class="previous mat-accent white-fg" (click)="gotoPreviousStep()" [disabled]="currentStep === 0" [fxHide]="currentStep === 0">
+                    <mat-icon>chevron_left</mat-icon>Previous
                 </button>
 
-                <button mat-fab class="next mat-accent white-fg" (click)="gotoNextStep()" [disabled]="currentStep === totalSteps - 1" [fxHide]="currentStep === totalSteps - 1">
-                    <mat-icon>chevron_right</mat-icon>
+                <button mat-raised-button class="next mat-accent white-fg" (click)="gotoNextStep()" [disabled]="currentStep === totalSteps - 1" [fxHide]="currentStep === totalSteps - 1">
+                    Next<mat-icon>chevron_right</mat-icon>
                 </button>
 
-                <button mat-fab class="done mat-green-600-bg" routerLink="/apps/academy/courses" [disabled]="currentStep !== totalSteps - 1"
+                <button mat-raised-button class="done mat-green-600-bg" routerLink="/apps/academy/courses" [disabled]="currentStep !== totalSteps - 1"
                     [fxShow]="currentStep === totalSteps - 1">
-                    <mat-icon>check</mat-icon>
+                    <mat-icon>check</mat-icon>Finish
                 </button>
 
             </div>
