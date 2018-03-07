@@ -10,7 +10,7 @@
                 <div class="steps">
 
                     <div class="step" *ngFor="let question of userExam; let i = index; let last = last; let first = first" (click)="gotoStep(i)"
-                        [ngClass]="{'current': currentStep === i, 'completed': currentStep > i, 'last': last, 'first': first}">
+                        [ngClass]="{'current': currentStep === i, 'completed': enableStep > i, 'last': last, 'first': first}">
                         <div class="index">
                             <span>{{i + 1}}</span>
                         </div>

@@ -22,6 +22,7 @@ export class ExamComponent implements OnInit, OnDestroy, AfterViewInit {
     animationDirection: 'left' | 'right' | 'none' = 'none';    
     fuseSettings: any;
     selectedChoiceId;
+    enableStep=1;
     totalSteps = 5;
 
     @ViewChildren(FusePerfectScrollbarDirective) fuseScrollbarDirectives: QueryList<FusePerfectScrollbarDirective>;
@@ -51,10 +52,12 @@ export class ExamComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     gotoStep(step) {
-        this.animationDirection = this.currentStep < step ? 'left' : 'right';
-        this.saveQuestionAnswer();
-        this.changeDetectorRef.detectChanges();
-        this.currentStep = step;
+        if (this.enableStep > step) {
+            this.animationDirection = this.currentStep < step ? 'left' : 'right';
+            this.saveQuestionAnswer();
+            this.changeDetectorRef.detectChanges();
+            this.currentStep = step;
+        }
     }
 
     gotoNextStep() {        
@@ -62,6 +65,10 @@ export class ExamComponent implements OnInit, OnDestroy, AfterViewInit {
             return;
         }
         this.saveQuestionAnswer();
+        if (this.currentStep === this.enableStep-1) {
+            ++this.enableStep;
+            
+        }
         this.animationDirection = 'left';
         this.changeDetectorRef.detectChanges();       
         this.currentStep++;
@@ -84,8 +91,11 @@ export class ExamComponent implements OnInit, OnDestroy, AfterViewInit {
 
     saveQuestionAnswer(){
         var questionId = this.userExam[this.currentStep].Id;
-        var answerId = this.selectedChoiceId;
+        var answerId = (this.selectedChoiceId)?this.selectedChoiceId:this.userExam[this.currentStep].ChoiceId;
+        this.userExam[this.currentStep].ChoiceId = answerId;
+        this.userExam[this.currentStep].IsAnswered = true;
         console.log(questionId + " - "+ answerId);
+        //Add save answer api call
         this.selectedChoiceId = null;
     }
 
