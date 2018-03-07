@@ -1,5 +1,11 @@
 @import "src/app/core/scss/fuse";
-
+.pull-right{
+    position: absolute;
+    right: 0;
+}
+.days{
+    visibility: hidden;
+}
 #exam {
 
     .mat-drawer-container {
