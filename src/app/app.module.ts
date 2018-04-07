@@ -17,7 +17,12 @@ const appRoutes: Routes = [
     {
         path        : 'exams',
         loadChildren: './main/content/exam/exam.module#ExamModule'
+    },
+    {
+        path: 'admin',
+        loadChildren: './main/content/admin/admin.module#AdminModule'
     }
+
 ];
 
 @NgModule({
